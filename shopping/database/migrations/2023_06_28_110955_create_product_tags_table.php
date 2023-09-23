@@ -18,13 +18,13 @@ return new class extends Migration
             $table->timestamps();
             //preferences:
             $table->foreign('product_id')
-                    ->references('id')
-                    ->on('products')
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('products')
+                ->onDelete('cascade');
             $table->foreign('tag_id')
-                    ->references('id')
-                    ->on('tags')
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
         });
     }
 
