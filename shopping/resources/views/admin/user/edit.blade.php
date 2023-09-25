@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section("title")
-    <title>Thêm User</title>
+    <title>Sửa User</title>
 @endsection
 
 @section('css')
@@ -26,7 +26,7 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-   @include('partials.content-header',['name' => 'User', 'key' => 'add' ])
+   @include('partials.content-header',['name' => 'User', 'key' => 'edit' ])
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -34,7 +34,7 @@
       <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <form action="{{ route('user.store') }}" method="post" >
+                <form action="{{ route('user.update',['id'=>$user->id]) }}" method="post" >
                   @csrf
                     <div class="mb-3">
                         <label class="form-label"> Nhập tên người dùng</label>
@@ -42,7 +42,7 @@
                                 class="form-control @error('name') is-invalid @enderror" 
                                 placeholder="Nhập tên người dùng" 
                                 name = "name"
-                                value = {{ old('name') }}
+                                value = "{{ old('name') ?? $user->name  }}"
                         >
                         <p class="font-weight-bold text-danger"> {{ $errors->first('name') }}</p>
                     </div>
@@ -53,18 +53,17 @@
                                 class="form-control @error('email') is-invalid @enderror" 
                                 placeholder="Nhập email" 
                                 name = "email"
-                                value = {{ old('email') }}
+                                value = {{ old('email') ?? $user->email }}
                         >
                         <p class="font-weight-bold text-danger"> {{ $errors->first('email') }}</p>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label"> Nhập mật khẩu</label>
-                        <input type="password" 
+                        <input type="text" 
                                 class="form-control @error('password') is-invalid @enderror" 
                                 placeholder="Nhập mật khẩu" 
                                 name = "password"
-                                value = {{ old('password') }}
                         >
                         <p class="font-weight-bold text-danger"> {{ $errors->first('password') }}</p>
                     </div>
@@ -73,7 +72,10 @@
                       <label class="form-label"> Chọn vai trò</label>
                       <select class="form-select role_select" name="role_id[]" multiple>
                         @foreach ($roles as $role)
-                          <option value="{{ $role->id }}"  >{{ $role->name }}</option>
+                          <option 
+                            value="{{ $role->id }}"  
+                            {{ $rolesOfUser->contains($role->id) ? 'selected' : '' }}  >{{ $role->name }}
+                          </option>
                         @endforeach
                       </select>
                       <p class="font-weight-bold text-danger"> {{ $errors->first('role_id') }}</p>

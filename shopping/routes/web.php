@@ -88,5 +88,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
         Route::get('/create', [AdminUserController::class, 'create'])->name('user.create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('user.store');
+        Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit');
+        Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('user.update');
     });
 });

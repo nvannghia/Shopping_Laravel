@@ -37,7 +37,7 @@
                     <td>{{ $user->email }}</td>
                     <td>
                       <div class="d-flex">
-                        <a href="" class="btn btn-info mr-3">Edit</a>
+                        <a href="{{ route('user.edit',['id'=>$user->id]) }}" class="btn btn-info mr-3">Edit</a>
                         <a 
                           href=""
                           class="btn btn-danger action_delete" 

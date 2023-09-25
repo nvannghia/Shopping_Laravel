@@ -24,7 +24,8 @@ class UserAddRequest extends FormRequest
         return [
             'name' => 'required|unique:users|min:5|max:255',
             'email' => 'required|unique:users|email:rfc,dns',
-            'password' => 'required|max:255'
+            'password' => 'required|max:255',
+            'role_id' => 'required'
         ];
     }
 
@@ -38,7 +39,8 @@ class UserAddRequest extends FormRequest
             'email.required' => 'Email bắt buộc nhập!',
             'email.unique' => 'Email đã tồn tại!',
             'email.email' => 'Vui lòng nhập đúng định dạng email(VD: abc@gmail.com)',
-            'password.required' => 'Mật khẩu bắt buộc nhập!'
+            'password.required' => 'Mật khẩu bắt buộc nhập!',
+            'role_id.required' => 'Vui lòng chọn vai trò người dùng!'
         ];
     }
 }
