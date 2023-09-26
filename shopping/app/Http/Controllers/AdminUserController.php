@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserAddRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Traits\DeleteModelTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class AdminUserController extends Controller
 {
+    use DeleteModelTrait;
     private $user;
     private $role;
 
@@ -78,6 +80,20 @@ class AdminUserController extends Controller
         } catch (Exception $ex) {
             DB::rollBack();
             Log::error('Message: ' . $ex->getMessage() . ', Line: ' . $ex->getLine());
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            DB::beginTransaction();
+            $this->user->find($id)->roles()->detach(); //detach role of user wanna delete
+            $response = $this->deleteModelTrait($id, $this->user);
+            DB::commit();
+            return $response;
+        } catch (Exception $exception) {
+            DB::rollBack();
+            Log::error("Message: " . $exception->getMessage() . ", Line: " . $exception->getLine());
         }
     }
 }

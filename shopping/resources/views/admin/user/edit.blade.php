@@ -73,8 +73,9 @@
                       <select class="form-select role_select" name="role_id[]" multiple>
                         @foreach ($roles as $role)
                           <option 
-                            value="{{ $role->id }}"  
-                            {{ $rolesOfUser->contains($role->id) ? 'selected' : '' }}  >{{ $role->name }}
+                              value="{{ $role->id }}"  
+                              {{ $rolesOfUser->contains('id',$role->id) ? 'selected' : '' }}  >
+                              {{ $role->name }}
                           </option>
                         @endforeach
                       </select>

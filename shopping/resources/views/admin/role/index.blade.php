@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section("title")
-    <title>Trang Chủ - User</title>
+    <title>Trang Chủ - Role</title>
 @endsection
 @section("css")
 <link rel="stylesheet" href="">
@@ -12,35 +12,35 @@
 @endsection
 @section('content')
   <div class="content-wrapper">
-    @include('partials.content-header',['name'=>'User', 'key'=>'list'])
+    @include('partials.content-header',['name'=>'Role', 'key'=>'list'])
     <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <a href="{{ route('user.create') }}" class="btn btn-primary float-right m-2">Add new user</a>
+            <a href="{{ route('role.create') }}" class="btn btn-primary float-right m-2">Add new Role</a>
           </div>
           <div class="col-md-12">
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
+                  <th scope="col">Vai trò</th>
+                  <th scope="col">Mô tả vai trò</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($users as $user)
+                @foreach ($roles as $role)
                   <tr>
-                    <th scope="row"> {{ $user->id }} </th>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
+                    <th scope="row"> {{ $role->id }} </th>
+                    <td>{{ $role->name }}</td>
+                    <td>{{ $role->display_name }}</td>
                     <td>
                       <div class="d-flex">
-                        <a href="{{ route('user.edit',['id'=>$user->id]) }}" class="btn btn-info mr-3">Edit</a>
+                        <a href="{{ route('role.edit', ['id' => $role->id ]) }}" class="btn btn-info mr-3">Edit</a>
                         <a 
                           href=""
-                          data-url="{{ route('user.delete',['id'=>$user->id]) }}"
+                          data-url="{{ route('role.delete',['id' => $role->id]) }}"
                           class="btn btn-danger action_delete" 
                         >
                           Delete
@@ -54,7 +54,7 @@
             </table>
           </div>
           <div class="col-md-12 d-flex justify-content-center mt-3">
-            {{ $users->links() }}
+            {{ $roles->links() }}
           </div> 
         </div>
       </div>
