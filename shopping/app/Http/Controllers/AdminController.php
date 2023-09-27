@@ -26,4 +26,10 @@ class AdminController extends Controller
         } else
             return redirect()->to('/admin')->with('error', "Đăng nhập thất bại!");
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return view('login');
+    }
 }

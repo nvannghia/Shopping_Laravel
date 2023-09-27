@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AdminSliderController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +31,10 @@ Route::get('/hello', function () {
     return "Hello Nghia Tap Code";
 });
 
+//login, logout
 Route::get('/admin', [AdminController::class, 'loginAdmin'])->name('login');
 Route::post('/admin', [AdminController::class, 'postLoginAdmin']);
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::get("/home", function () {
     return view('home');
@@ -40,14 +44,14 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 // category, menu, product route
-Route::prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::prefix('categories')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
-        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index')->middleware('can:list-category');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('can:add-category');
         Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
-        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('can:edit-category');
         Route::get('/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
-        Route::post('/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
+        Route::post('/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('can:delete-category');
     });
 
     Route::prefix('menus')->group(function () {
@@ -102,5 +106,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminRoleController::class, 'edit'])->name('role.edit');
         Route::post('/update/{id}', [AdminRoleController::class, 'update'])->name('role.update');
         Route::get('delete/{id}', [AdminRoleController::class, 'delete'])->name('role.delete');
+    });
+
+    Route::prefix('permission')->group(function () {
+        Route::get('/create', [PermissionController::class, 'create'])->name('permission.create');
+        Route::post('/store', [PermissionController::class, 'store'])->name('permission.store');
     });
 });
