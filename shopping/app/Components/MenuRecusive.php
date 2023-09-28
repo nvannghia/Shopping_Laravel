@@ -45,21 +45,5 @@ class MenuRecusive{
     }
 
 
-    // public function getarr()
-    // {
-    //     return $this->arr_dis;
-    // }
-
-    // public function findChildren($id){ 
-    //     $menus = $this->menu->all();
-    //     foreach($menus as $menuItem){
-    //         if($menuItem->parent_id == $id){
-    //             array_push($this->arr_disabled,$menuItem->id);
-    //             $this->findChildren($menuItem->id);
-    //         }
-    //     }
-    //     return $this->arr_disabled;
-    // }
 
 }
-?>

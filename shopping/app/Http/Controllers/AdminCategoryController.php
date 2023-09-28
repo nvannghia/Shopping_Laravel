@@ -9,7 +9,7 @@ use App\Components\Recusive;
 use Illuminate\Support\Str;
 use  Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class AdminCategoryController extends Controller
 {
     private $category;
     public function __construct(Category $category)

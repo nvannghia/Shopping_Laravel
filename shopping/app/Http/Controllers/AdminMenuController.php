@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class MenuController extends Controller
+class AdminMenuController extends Controller
 {
     private $menuRecusive;
     private $menu;
@@ -22,20 +22,20 @@ class MenuController extends Controller
 
     public function index()
     {
-            $menus = $this->menu->simplePaginate(5);
-            return view('admin.menus.index',compact('menus'));
+        $menus = $this->menu->simplePaginate(5);
+        return view('admin.menus.index', compact('menus'));
     }
 
     public function create()
     {
         $optionSelect = $this->menuRecusive->menuRecusiveAdd('');
-        return view('admin.menus.add',compact('optionSelect'));
+        return view('admin.menus.add', compact('optionSelect'));
     }
 
     public function store(Request $request)
     {
-        DB::transaction(function () use ($request){
-           $this->menu->create([
+        DB::transaction(function () use ($request) {
+            $this->menu->create([
                 'name' => $request->name,
                 'parent_id' => $request->parent_id,
                 'slug' => Str::slug($request->name)
@@ -45,14 +45,16 @@ class MenuController extends Controller
         return redirect()->route('menus.index');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $menu = $this->menu->find($id);
         $optionSelect = $this->menuRecusive->menuRecusiveAdd($menu->parent_id);
-        return view('admin.menus.edit',compact('menu','optionSelect'));
+        return view('admin.menus.edit', compact('menu', 'optionSelect'));
     }
 
-    public function update($id, Request $request){
-        DB::transaction(function () use ($request,$id){
+    public function update($id, Request $request)
+    {
+        DB::transaction(function () use ($request, $id) {
             $this->menu->find($id)->update([
                 'name' => $request->name,
                 'parent_id' => $request->parent_id,
@@ -66,8 +68,7 @@ class MenuController extends Controller
     public function delete($id)
     {
         $arr_deleted = $this->menuRecusive->delMenuRecusive($id);
-        $this->menu->WhereIn('id',$arr_deleted)->delete();
+        $this->menu->WhereIn('id', $arr_deleted)->delete();
         return redirect()->route('menus.index');
     }
-
 }

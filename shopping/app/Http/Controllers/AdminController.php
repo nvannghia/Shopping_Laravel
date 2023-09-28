@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function loginAdmin()
     {
         if (Auth::check()) {
-            return redirect('home');
+            return redirect()->route('categories.index');
         }
         return view('login');
     }
@@ -22,7 +22,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ], $remember)) {
-            return redirect()->to('home');
+            return redirect('welcome');
         } else
             return redirect()->to('/admin')->with('error', "Đăng nhập thất bại!");
     }

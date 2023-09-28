@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class PermissionController extends Controller
+class AdminPermissionController extends Controller
 {
     public function create()
     {
@@ -36,7 +36,7 @@ class PermissionController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('permission.create')->with('successMsg', 'Đã thêm permission thành công!');
+            return redirect()->route('permission.create')->with('successMsg', 'Đã thêm ' . $request->module_parent . ' permission thành công!');
         } catch (Exception $ex) {
             DB::rollBack();
             Log::error("Message: " . $ex->getMessage() . ", Line: " . $ex->getLine());

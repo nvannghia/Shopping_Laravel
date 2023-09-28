@@ -60,14 +60,13 @@
 
                     <div class="mb-3">
                         <label class="form-label"> Nhập mật khẩu</label>
-                        <input type="text" 
+                        <input type="password" 
                                 class="form-control @error('password') is-invalid @enderror" 
                                 placeholder="Nhập mật khẩu" 
                                 name = "password"
                         >
                         <p class="font-weight-bold text-danger"> {{ $errors->first('password') }}</p>
                     </div>
-
                     <div class="mb-3">
                       <label class="form-label"> Chọn vai trò</label>
                       <select class="form-select role_select" name="role_id[]" multiple>
