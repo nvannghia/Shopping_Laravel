@@ -44,7 +44,14 @@
 													{{ $prod->name }}
 												</a>
 											</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a 
+												href="" 
+												class="btn btn-default add-to-cart"
+												data-url="{{ route('product.add-to-cart',['id' => $prod->id]) }}"
+											>
+												<i class="fa fa-shopping-cart"></i>
+												Add to cart
+											</a>
 										</div>
 									</div>
 								</div>

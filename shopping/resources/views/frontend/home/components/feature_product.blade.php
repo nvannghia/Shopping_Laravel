@@ -21,7 +21,7 @@
                         <div class="overlay-content" >
                             <h2>{{number_format( $product->price) }} <i class="fa-solid fa-dong-sign"></i></h2>
                             <p>
-                                <a href="{{ route('product.detail', ['id'=>$product->id]) }}">
+                                <a href="{{ route('product.detail', ['id'=>$product->id]) }}" style="color:white">
                                     {{ $product->name }}
                                 </a>
                             </p>

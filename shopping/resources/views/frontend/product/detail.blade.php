@@ -9,6 +9,7 @@
 
 @section('js')
     <script src="{{ asset('home/home.js') }}"></script>
+    
 @endsection
 
 @section('content')
@@ -44,11 +45,11 @@
                             <img src="images/product-details/rating.png" alt="" />
                             <span>
                                 <span>{{ number_format($product->price)  }} <i class="fa-solid fa-dong-sign"></i></span>
-                                <label>Quantity:</label>
-                                <input type="number" value="1" />
+                                {{-- <label>Quantity:</label>
+                                <input type="number" value="1" /> --}}
                                 <a 
                                     data-url="{{ route('product.add-to-cart',['id'=>$product->id ]) }}"
-                                    class="btn btn-default add-to-cart"
+                                    class="btn btn-default add-to-cart add-to-cart-list"
                                 >
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart

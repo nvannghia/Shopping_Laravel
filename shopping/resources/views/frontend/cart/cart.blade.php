@@ -11,13 +11,11 @@
     @section('js')
         <script src="{{ asset('home/home.js') }}"></script>
 		<script>
-
-			function cartUpdate(event){
-				event.preventDefault();
+			function cartUpdate (event) {
+					event.preventDefault();
 				let urlUpdate = $('.update_cart_url').data('url');
 				let idItemUpdate = $(this).data('id');
 				let quantity = $(this).parents('tr').find('input.cart_quantity_input').val();
-				
 				$.ajax({
 					type: "GET",
 					url: urlUpdate,
@@ -25,6 +23,7 @@
 					success: function (response) {
 						if(response.code === 200){
 							$('.cart_wrapper').html(response.cart_component);
+							alert('Update successful');
 						}
 					},
 					error: function(response){
@@ -35,11 +34,32 @@
 				});
 			}
 
-
+			function cartDelete(event){
+				event.preventDefault();
+				let urlDelete = $('.cart_delete').data('url');
+				let idItemDelete = $(this).data('id');
+				$.ajax({
+					type: "GET",
+					url: urlDelete,
+					data: {id: idItemDelete },
+					success: function (response) {
+						if(response.code === 200){
+							$('.cart_wrapper').html(response.cart_component);
+							alert('Delete successful');
+						}
+					},
+					error: function(response){
+						if(response.code === 500){
+							alert('Exception:', exception);
+						}
+					}
+				});
+			}
 
 			$(function(){
-				$('.cart_quantity_update').on('click', cartUpdate);
-			});
+				$(document).on('click', '.cart_quantity_update', cartUpdate);
+				$(document).on('click', '.cart_quantity_delete', cartDelete);
+			})
 
 		</script>
 
@@ -49,4 +69,5 @@
 		<div class="cart_wrapper">
 			@include('frontend.cart.components.cart_list_item')
 		</div>
+		
 	@endsection

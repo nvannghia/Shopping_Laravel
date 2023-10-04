@@ -6,7 +6,7 @@
             <li class="active">Shopping Cart</li>
             </ol>
         </div>
-        <div class="table-responsive cart_info">
+        <div class="table-responsive cart_info cart_delete" data-url="{{ route('product.delete-cart') }}">
             <table class="table table-condensed update_cart_url" data-url="{{ route('product.update-cart') }}">
                 <thead>
                     <tr class="cart_menu">
@@ -58,6 +58,7 @@
                                 title="update your cart"
                                 style="color:blue"
                                 data-id="{{ $id }}"
+                                
                             >
                                 <i class="fa-solid fa-pen-fancy"></i>
                             </a>
@@ -66,6 +67,7 @@
                                 href=""
                                 title="delete this item"
                                 style="color:red"
+                                data-id="{{ $id }}"
                             >
                                 <i class="fa-solid fa-trash-arrow-up"></i>
                             </a>
@@ -78,10 +80,9 @@
                             <h3>Total all:</h3><p class="cart_total_price">{{ number_format($total) }} <i class="fa-solid fa-dong-sign"></i></p>
                         </td>
                     </tr>
-
-                
                 </tbody>
             </table>
         </div>
     </div>
+    
 </section> <!--/#cart_items-->

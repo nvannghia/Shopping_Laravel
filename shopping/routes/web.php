@@ -133,3 +133,4 @@ Route::get("category/{slug}/{id}", [CustomerCategory::class, 'index'])->name('ca
 Route::get('product/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('product.add-to-cart');
 Route::get('product/show-cart', [CartController::class, 'showCart'])->name('product.show-cart');
 Route::get('product/update-cart', [CartController::class, 'updateCart'])->name('product.update-cart');
+Route::get('product/delete-cart', [CartController::class, 'deleteCart'])->name('product.delete-cart');

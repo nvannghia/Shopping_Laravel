@@ -44,9 +44,27 @@ class CartController extends Controller
             session()->put('cart', $cart);
             //re-render view (to update total price ...)
             $cartItems = session()->get('cart');
-            //pass categoryParent fors header
-            $categoryParents = Category::Where('parent_id', 0)->get();
-            $cart_component = view('frontend.cart.cart', compact('cartItems', 'categoryParents'))->render();
+            $cart_component = view('frontend.cart.components.cart_list_item', compact('cartItems'))->render();
+            return response()->json([
+                'cart_component' => $cart_component,
+                'code' => 200
+            ], 200);
+        }
+        return response()->json([
+            'code' => 500,
+            'message' => 'Failed'
+        ], 500);
+    }
+
+    public function deleteCart(Request $request)
+    {
+        if ($request->id) {
+            $cart = session()->get('cart');
+            unset($cart[$request->id]);
+            session()->put('cart', $cart);
+            //re-render view (to update total price ...)
+            $cartItems = session()->get('cart');
+            $cart_component = view('frontend.cart.components.cart_list_item', compact('cartItems'))->render();
             return response()->json([
                 'cart_component' => $cart_component,
                 'code' => 200
