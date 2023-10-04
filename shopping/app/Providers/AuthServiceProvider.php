@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Slider;
 use App\Policies\CategoryPolicy;
 use App\Policies\MenuPolicy;
+use App\Policies\PermissionPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
@@ -76,5 +77,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('add-role', [RolePolicy::class, 'create']);
         Gate::define('edit-role', [RolePolicy::class, 'update']);
         Gate::define('delete-role', [RolePolicy::class, 'delete']);
+        //Permission 
+        Gate::define('add-permission', [PermissionPolicy::class, 'create']);
     }
 }

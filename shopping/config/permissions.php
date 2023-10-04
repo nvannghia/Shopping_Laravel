@@ -34,7 +34,9 @@ return [
         'list-role' => 'role-list',
         'add-role' => 'role-add',
         'edit-role' => 'role-edit',
-        'delete-role' => 'role-delete'
+        'delete-role' => 'role-delete',
+
+        'add-permission' => 'permission-add',
     ],
 
     'table_module' => [
@@ -44,7 +46,8 @@ return [
         'product',
         'setting',
         'user',
-        'role'
+        'role',
+        'permission'
     ],
 
     'module_children' => [

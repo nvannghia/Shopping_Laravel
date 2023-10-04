@@ -9,6 +9,9 @@ use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AdminSliderController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPermissionController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerCategory;
+use App\Http\Controllers\CustomerProductContoller;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -111,7 +114,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     });
 
     Route::prefix('permission')->group(function () {
-        Route::get('/create', [AdminPermissionController::class, 'create'])->name('permission.create');
+        Route::get('/create', [AdminPermissionController::class, 'create'])->name('permission.create')->middleware('can:add-permission');
         Route::post('/store', [AdminPermissionController::class, 'store'])->name('permission.store');
     });
 });
@@ -120,4 +123,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 //Front-end route
-Route::get("/", [HomeController::class, 'index']);
+Route::get("/", [HomeController::class, 'index'])->name('home.index');
+Route::prefix('product')->group(function () {
+    Route::get('detail/{id}', [CustomerProductContoller::class, 'productDetail'])->name('product.detail');
+});
+Route::get("category/{slug}/{id}", [CustomerCategory::class, 'index'])->name('category.product');
+
+//Cart's route
+Route::get('product/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('product.add-to-cart');
+Route::get('product/show-cart', [CartController::class, 'showCart'])->name('product.show-cart');
+Route::get('product/update-cart', [CartController::class, 'updateCart'])->name('product.update-cart');

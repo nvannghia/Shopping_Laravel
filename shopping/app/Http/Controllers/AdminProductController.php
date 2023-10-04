@@ -99,14 +99,18 @@ class AdminProductController extends Controller
             }
 
             //Insert data into `tag` table
-            foreach ($request->tags as $tagItem) {
-                $tagInstance = $this->tag->firstOrCreate([
-                    'name' => $tagItem
-                ]);
-                $tagsId[] = $tagInstance["id"];
+            if (!empty($request->tags)) {
+                foreach ($request->tags as $tagItem) {
+                    $tagInstance = $this->tag->firstOrCreate([
+                        'name' => $tagItem
+                    ]);
+                    $tagsId[] = $tagInstance["id"];
+                }
+                //Insert data into `product_tags` table
+                $product->tags()->attach($tagsId);
             }
-            //Insert data into `product_tags` table
-            $product->tags()->attach($tagsId);
+
+
             //COMMIT WITHOUT ANY ERROR
             DB::commit();
 
@@ -165,11 +169,14 @@ class AdminProductController extends Controller
             }
 
             //Update data into `tag` table
-            foreach ($request->tags as $tagItem) {
-                $tagInstance = $this->tag->firstOrCreate([
-                    'name' => $tagItem
-                ]);
-                $tagsId[] = $tagInstance["id"];
+            $tagsId = [];
+            if (!empty($request->tags)) {
+                foreach ($request->tags as $tagItem) {
+                    $tagInstance = $this->tag->firstOrCreate([
+                        'name' => $tagItem
+                    ]);
+                    $tagsId[] = $tagInstance["id"];
+                }
             }
             //Insert data into `product_tags` table
             $product->tags()->sync($tagsId);

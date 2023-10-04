@@ -104,15 +104,17 @@
               </a>
             </li>
           @endcan
-          <li class="nav-item">
-            <a href="{{ route('permission.create') }}" class="nav-link">
-              <i class="nav-icon fa-solid fa-layer-group"></i>
-              <p>
-                Create permission
-              </p>
-            </a>
-          </li>
 
+          @can('add-permission')
+            <li class="nav-item">
+              <a href="{{ route('permission.create') }}" class="nav-link">
+                <i class="nav-icon fa-solid fa-layer-group"></i>
+                <p>
+                  Create permission
+                </p>
+              </a>
+            </li>
+          @endcan
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
