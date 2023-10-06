@@ -65,7 +65,19 @@
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="{{ route('product.show-cart') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li >
+                                <a href="{{ route('product.show-cart') }}" style="position: relative">
+                                    <i class="fa fa-shopping-cart"></i> 
+                                    Cart
+                                    <h5 
+                                        style="position: absolute; bottom:4px; left:8px; background-color: orange; border: 2px solid white; border-radius: 8px; color:white; min-width: 20px;text-align: center
+                                        "
+                                        >{{ count(session('cart')) }}
+                                    </h5>
+                                </a>
+                                
+                            </li>
+                           
                             <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>

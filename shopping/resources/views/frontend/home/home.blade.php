@@ -16,6 +16,7 @@
         @include('frontend.home.components.slider')
         <!--/slider-->
         <section>
+           
             <div class="container">
                 <div class="row">
                     {{-- component Sidebar --}}

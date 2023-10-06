@@ -29,10 +29,10 @@
                     @endphp
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="{{ $cartItem['image_path'] }}" alt="" width="120px"></a>
+                            <img src="{{ $cartItem['image_path'] }}" alt="" width="120px">
                         </td>
                         <td class="cart_description" style="text-align: center">
-                            <h4><a href="">{{ $cartItem['name'] }}</a></h4>
+                            <h4><a href="{{ route('product.detail', ['id'=> $id]) }}">{{ $cartItem['name'] }}</a></h4>
                         </td>
                         <td class="cart_price">
                             <p>{{ number_format($cartItem['price'] )}} <i class="fa-solid fa-dong-sign"></i></p>
