@@ -13,7 +13,7 @@
                         @foreach ($sliders as $key => $value)
                             <div class="item {{ $key == 0 ? 'active' : '' }} ">
                                 <div class="col-sm-6">
-                                    <h1><span>N</span>-SHOPPING</h1>
+                                    <h1><span>E</span>-SHOPPING</h1>
                                     <h2>{{ $value->name }}</h2>
                                     <p> {{ $value->description }}</p>
                                     <button type="button" class="btn btn-default get">Get it now</button>

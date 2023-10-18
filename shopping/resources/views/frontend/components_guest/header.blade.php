@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="{{ asset('Eshopper/images/home/logo.png') }}" alt="" /></a>
+                        <a href="{{ route('home.index') }}"><img src="{{ asset('Eshopper/images/home/logo.png') }}" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -62,9 +62,9 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                            
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="{{ route('orders.list') }}"><i class="fa fa-crosshairs"></i>  Purchase order </a></li>
                             <li >
                                 <a href="{{ route('product.show-cart') }}" style="position: relative">
                                     <i class="fa fa-shopping-cart"></i> 
@@ -72,13 +72,17 @@
                                     <h5 
                                         style="position: absolute; bottom:4px; left:8px; background-color: orange; border: 2px solid white; border-radius: 8px; color:white; min-width: 20px;text-align: center
                                         "
-                                        >{{ count(session('cart')) }}
+                                        >{{ session('cart') ? count(session('cart')) : '0' }}
                                     </h5>
                                 </a>
                                 
                             </li>
-                           
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                            @if (auth()->user() == null)
+                                <li><a href="{{ route('customer-login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                            @else
+                                <li><a href="#"  style="color:orange"><i class="fa fa-user"></i> {{ auth()->user()->name }}</a></li>
+                                <li><a href="{{ route('customer-logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

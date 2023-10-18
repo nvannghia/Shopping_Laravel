@@ -7,7 +7,7 @@
 @section('content')
   <div class="content-wrapper">
     @include('partials.content-header',['name'=>'category', 'key'=>'list'])
-    
+   
     <div class="content">
       <div class="container-fluid">
         <div class="row">

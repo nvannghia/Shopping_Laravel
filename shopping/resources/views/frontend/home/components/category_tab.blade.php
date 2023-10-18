@@ -21,7 +21,11 @@
                                     <div class="productinfo text-center">
                                         <img src="{{ $productItem->feature_image_path }} " alt="" />
                                         <h2>{{ number_format($productItem->price) }} <i class="fa-solid fa-dong-sign"></i></h2>
-                                        <p style=" height: 20px;overflow: hidden; text-overflow: ellipsis;">{{ $productItem->name }}</p>
+                                        <p style=" height: 20px;overflow: hidden; text-overflow: ellipsis;">
+                                            <a href="{{ route('product.detail', ['id'=>$productItem->id]) }}">
+                                                {{ $productItem->name }}
+                                            </a>
+                                        </p>
                                         <a 
                                             href="" 
                                             data-url="{{ route('product.add-to-cart',['id'=>$productItem->id ]) }}"

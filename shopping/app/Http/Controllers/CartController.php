@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -31,8 +35,12 @@ class CartController extends Controller
 
     public function showCart()
     {
-        $categoryParents = Category::Where('parent_id', 0)->get(); // for header
-        $cartItems = session()->get('cart');
+        $categoryParents = Category::Where('parent_id', 0)->get(); // for header\
+        $cartItems = [];
+        if (session()->has('cart')) {
+            $cartItems = session()->get('cart');
+            return view('frontend.cart.cart', compact('categoryParents', 'cartItems'));
+        }
         return view('frontend.cart.cart', compact('categoryParents', 'cartItems'));
     }
 
@@ -65,6 +73,22 @@ class CartController extends Controller
             //re-render view (to update total price ...)
             $cartItems = session()->get('cart');
             $cart_component = view('frontend.cart.components.cart_list_item', compact('cartItems'))->render();
+            return response()->json([
+                'cart_component' => $cart_component,
+                'code' => 200
+            ], 200);
+        }
+        return response()->json([
+            'code' => 500,
+            'message' => 'Failed'
+        ], 500);
+    }
+
+    public function deleteAllCart()
+    {
+        if (session()->has('cart')) {
+            session()->forget('cart');
+            $cart_component = view('frontend.cart.components.cart_list_item', ['cartItems' => []])->render();
             return response()->json([
                 'cart_component' => $cart_component,
                 'code' => 200

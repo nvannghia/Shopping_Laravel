@@ -13,7 +13,11 @@
                                     <div class="productinfo text-center">
                                         <img src="{{ $value->feature_image_path }}" alt="" />
                                         <h2>{{ number_format($value->price) }}<i class="fa-solid fa-dong-sign"></i></h2>
-                                        <p>{{ $value->name }}</p>
+                                        <p>
+                                            <a href="{{ route('product.detail', ['id'=>$value->id]) }}">
+                                                {{ $value->name }}
+                                            </a>
+                                    </p>
                                         <a 
                                             href=""
                                             data-url="{{ route('product.add-to-cart',['id'=>$value->id ]) }}""

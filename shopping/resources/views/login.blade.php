@@ -139,6 +139,13 @@ button{
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+    @if (session('error'))
+        <h1 
+            style="color: whitesmoke; text-align: center; background: #ff512f; border-radius: 10px"
+        >
+            {{ session('error') }}
+        </h1>
+    @endif
     <form action="/admin" accept-charset="UTF-8" role="form" method="post">
         @csrf
         <h3>Login Here</h3>

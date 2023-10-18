@@ -36,4 +36,15 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class, 'product_tags', 'product_id', 'tag_id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_detail', 'product_id', 'order_id')
+            ->withPivot('unit_price', 'quantity');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'id');
+    }
 }

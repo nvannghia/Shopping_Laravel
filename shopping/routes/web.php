@@ -11,9 +11,13 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPermissionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerCategory;
+use App\Http\Controllers\CustomerLoginController;
 use App\Http\Controllers\CustomerProductContoller;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\VerifyAccountRole;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +44,10 @@ Route::get('/hello', function () {
 Route::get('/admin', [AdminController::class, 'loginAdmin'])->name('login');
 Route::post('/admin', [AdminController::class, 'postLoginAdmin']);
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('logout');
+// Route::get('/welcome', ['middleware' => 'verify-account-role', function () {
+//     return view('welcome');
+// }]);
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -48,7 +56,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-// category, menu, product route
+// // category, menu, product route
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('categories.index')->middleware('can:list-category');
@@ -122,6 +130,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 
+
 //Front-end route
 Route::get("/", [HomeController::class, 'index'])->name('home.index');
 Route::prefix('product')->group(function () {
@@ -134,3 +143,26 @@ Route::get('product/add-to-cart/{id}', [CartController::class, 'addToCart'])->na
 Route::get('product/show-cart', [CartController::class, 'showCart'])->name('product.show-cart');
 Route::get('product/update-cart', [CartController::class, 'updateCart'])->name('product.update-cart');
 Route::get('product/delete-cart', [CartController::class, 'deleteCart'])->name('product.delete-cart');
+Route::get('product/delete-cart-all', [CartController::class, 'deleteAllCart'])->name('product.delete-cart-all');
+
+
+
+// Customer login
+Route::prefix('customer')->group(function () {
+    Route::get('/login', [CustomerLoginController::class, 'loginCustomer'])->name('customer-login');
+    Route::post('/login', [CustomerLoginController::class, 'postLoginCustomer']);
+    Route::get('/register', [CustomerLoginController::class, 'registerCustomer'])->name('customer-register');
+    Route::post('/register', [CustomerLoginController::class, 'postRegisterCustomer']);
+    Route::get('/logout', [CustomerLoginController::class, 'logoutCustomer'])->name('customer-logout');
+});
+
+//Reivew route
+Route::post('product/{id}/review', [ReviewController::class, 'reivew'])->name('product.review');
+
+
+//order 
+Route::get('product/order', [OrderController::class, 'order'])->name('customer-order');
+//Purchase Order
+Route::get('orders', [OrderController::class, 'listOrders'])->name('orders.list');
+//detail order
+Route::get('orders/detail/{id}', [OrderController::class, 'orderDetail'])->name('orders.detail');
