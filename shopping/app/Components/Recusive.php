@@ -1,7 +1,11 @@
-<?php 
+<?php
+
 namespace App\Components;
+
 use App\Models\Category;
-class Recusive{
+
+class Recusive
+{
 
     private $data;
     private $htmlSelect = "";
@@ -12,18 +16,24 @@ class Recusive{
         $this->data = $data;
     }
 
-    function categoryRecusive($parentId,$id = 0, $text = '') // 1 // 0 // ''
+    function categoryRecusive($parentId, $id = 0, $text = '') // 1 // 0 // ''
     {
+        // 1	SPORTSWEAR	0
+        // 2	MENS	    0
+        // 3	WOMENS	    0
+        // 4	KIDS	    0
+        // 5	NIKE	    1
+        // 6	ADIDAS	    1
+        // 7	PUMA	    1       
         //data current is all records of category
         foreach ($this->data as $category) {
             if ($category->parent_id == $id) {
-                if(!empty($parentId) && $parentId == $category->id){
+                if (!empty($parentId) && $parentId == $category->id) {
                     $this->htmlSelect .= " <option value='{$category->id}' selected> " . $text . $category->name . "</option>";
-                }
-                else{
+                } else {
                     $this->htmlSelect .= " <option value='{$category->id}'> " . $text . $category->name . "</option>";
                 }
-                $this->categoryRecusive($parentId,$category['id'], $text ."&nbsp;-");
+                $this->categoryRecusive($parentId, $category['id'], $text . "&nbsp;-");
             }
         }
         return $this->htmlSelect;
@@ -46,18 +56,13 @@ class Recusive{
     //     }
 
     public function delCategoryRecusive($id)
-    { 
-        array_push($this->arr_deleted,$id);
-        foreach($this->data as $cate)
-        {
-            if($cate->parent_id == $id)
-            {
+    {
+        array_push($this->arr_deleted, $id);
+        foreach ($this->data as $cate) {
+            if ($cate->parent_id == $id) {
                 $this->delCategoryRecusive($cate->id);
             }
         }
         return $this->arr_deleted;
     }
-    }
-
-
-?>
+}

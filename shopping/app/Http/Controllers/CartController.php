@@ -35,7 +35,7 @@ class CartController extends Controller
 
     public function showCart()
     {
-        $categoryParents = Category::Where('parent_id', 0)->get(); // for header\
+        $categoryParents = Category::Where('parent_id', 0)->get(); // for header
         $cartItems = [];
         if (session()->has('cart')) {
             $cartItems = session()->get('cart');

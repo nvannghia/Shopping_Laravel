@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory;
-    use SoftDeletes; //  dòng này để tự động thêm điều kiện delete_at = null vào câu query nhé
+    use SoftDeletes; //  dòng này để tự động thêm điều kiện delete_at = null vào câu query 
     protected $table = 'categories';
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'parent_id', 'slug'];
